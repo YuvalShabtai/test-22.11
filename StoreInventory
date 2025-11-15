@@ -1,0 +1,102 @@
+class ItemDate
+{
+    private int day;
+    private int month;
+    private int year;
+
+    public ItemDate(int day, int month, int year)
+    {
+        this.day = day;
+        this.month = month;
+        this.year = year;
+    }
+
+    public int GetDay() { return day; }
+    public int GetMonth() { return month; }
+    public int GetYear() { return year; }
+
+    public void SetDay(int d) { day = d; }
+    public void SetMonth(int m) { month = m; }
+    public void SetYear(int y) { year = y; }
+}
+class Item
+{
+    protected string name;
+    protected string catalogNumber;
+    protected int quantity;
+    protected int minQuantity;
+
+    public Item(string name, string catalogNumber, int quantity, int minQuantity)
+    {
+        this.name = name;
+        this.catalogNumber = catalogNumber;
+        this.quantity = quantity;
+        this.minQuantity = minQuantity;
+    }
+
+    // Part B: IsMissing()
+    public bool IsMissing()
+    {
+        return quantity < minQuantity;
+    }
+
+    // Part C: CanBeStored – default (always true)
+    public virtual bool CanBeStored(int temp)
+    {
+        return true;
+    }
+}
+
+class FoodItem : Item
+{
+    protected ItemDate expiryDate;
+
+    public FoodItem(string name, string catalogNumber, int quantity,
+                    int minQuantity, ItemDate expiryDate)
+        : base(name, catalogNumber, quantity, minQuantity)
+    {
+        this.expiryDate = expiryDate;
+    }
+
+    // No override needed – food without refrigeration can be stored anywhere
+}
+
+class FoodRefrigerated : FoodItem
+{
+    private int minTemperature;
+    private int maxTemperature;
+
+    public FoodRefrigerated(string name, string catalogNumber, int quantity,
+                            int minQuantity, ItemDate expiryDate,
+                            int minTemperature, int maxTemperature)
+        : base(name, catalogNumber, quantity, minQuantity, expiryDate)
+    {
+        this.minTemperature = minTemperature;
+        this.maxTemperature = maxTemperature;
+    }
+
+    public override bool CanBeStored(int temp)
+    {
+        return temp >= minTemperature && temp <= maxTemperature;
+    }
+}
+
+class ElectronicItem : Item
+{
+    private ItemDate guaranteeDate;
+
+    public ElectronicItem(string name, string catalogNumber, int quantity,
+                          int minQuantity, ItemDate guaranteeDate)
+        : base(name, catalogNumber, quantity, minQuantity)
+    {
+        this.guaranteeDate = guaranteeDate;
+    }
+
+}
+class Tester
+{
+    public static bool CanBeStored(Item item, int temp)
+    {
+        return item.CanBeStored(temp);
+    }
+}
