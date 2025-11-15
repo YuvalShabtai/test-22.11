@@ -1,0 +1,94 @@
+class Employee
+{
+    protected int yearOfSeniority;
+
+    public Employee(int yearOfSeniority)
+    {
+        this.yearOfSeniority = yearOfSeniority;
+    }
+
+    public virtual int GetScore()
+    {
+        return yearOfSeniority + 4;
+    }
+}
+
+class UnionMember : Employee
+{
+    private int yearsInUnion;
+
+    public UnionMember(int yearOfSeniority, int yearsInUnion)
+        : base(yearOfSeniority)
+    {
+        this.yearsInUnion = yearsInUnion;
+    }
+
+    public override int GetScore()
+    {
+        return 2 * (yearOfSeniority + 4) + (yearsInUnion * 2);
+    }
+}
+
+class Technician : Employee
+{
+    private int computers; 
+
+    public Technician(int yearOfSeniority, int computers)
+        : base(yearOfSeniority)
+    {
+        this.computers = computers;
+    }
+    public override int GetScore()
+    {
+        return (yearOfSeniority + 4) + computers; 
+    }
+}
+
+class Supervisor : Employee
+{
+    private Employee[] employees;
+
+    public Supervisor(int yearOfSeniority, Employee[] employees)
+    : base(yearOfSeniority)
+    {
+        this.employees = employees;
+    }
+    public override int GetScore()
+    {
+        int sum = 0;
+        for(int i = 0; i < employees.Length; i++)
+        {
+            sum += employees[i].GetScore();
+        }
+        return (yearOfSeniority + 4) + sum;
+    }
+}
+
+internal class Program
+{
+    public static bool IsAccepted(Object[] arr)
+    {
+        int sumFor = 0;
+        int sumAgainst = 0;
+
+        foreach (object obj in arr)
+        {
+            Employee e = (Employee)obj;
+
+            if (e is Employee && !(e is Technician) && !(e is UnionMember) && !(e is Supervisor))
+            {
+                sumFor += e.GetScore(); 
+            }
+            else if (e is Technician)
+            {
+                sumFor += e.GetScore();
+            }
+            else 
+            {
+                sumAgainst += e.GetScore();
+            }
+        }
+
+        return sumFor > sumAgainst;
+    }
+}
