@@ -17,6 +17,7 @@
 
       return true;
   }
+
   public static bool AlmostOscillating(int[] arr)
   {
       // אם המערך כבר מתנודד, הוא לא "כמעט" מתנודד
