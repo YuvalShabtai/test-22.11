@@ -1,0 +1,91 @@
+
+    public class Drone
+    {
+        protected string id;
+        protected string clientName;
+        protected bool isOutdoor;
+
+        public Drone(string id, string clientName, bool isOutdoor)
+        {
+            this.id = id;
+            this.clientName = clientName;
+            this.isOutdoor = isOutdoor;
+        }
+
+        public virtual int GetDeliveryTime(int packageWeight)
+        {
+            return 20;
+        }
+    }
+
+    public class LightDrone : Drone
+    {
+        public LightDrone(string id, string clientName, bool isOutdoor)
+            : base(id, clientName, isOutdoor)
+        {
+        }
+
+        public override int GetDeliveryTime(int packageWeight)
+        {
+            if (isOutdoor == false)
+                return base.GetDeliveryTime(packageWeight) + 5;
+
+            return base.GetDeliveryTime(packageWeight);
+        }
+    }
+
+    public class HeavyDrone : Drone
+    {
+        private int maxWeight;
+
+        public HeavyDrone(string id, string clientName, bool isOutdoor, int maxWeight)
+            : base(id, clientName, isOutdoor)
+        {
+            this.maxWeight = maxWeight;
+        }
+
+        public override int GetDeliveryTime(int packageWeight)
+        {
+            double half = maxWeight / 2.0;
+
+            if (packageWeight > half)
+                return base.GetDeliveryTime(packageWeight) + 15;
+
+            return base.GetDeliveryTime(packageWeight);
+        }
+    }
+
+    public class ExpressDrone : Drone
+    {
+        private bool turbo;
+
+        public ExpressDrone(string id, string clientName, bool isOutdoor, bool turbo)
+            : base(id, clientName, isOutdoor)
+        {
+            this.turbo = turbo;
+        }
+
+        public override int GetDeliveryTime(int packageWeight)
+        {
+            if (turbo)
+                return base.GetDeliveryTime(packageWeight) - 10;
+
+            return base.GetDeliveryTime(packageWeight);
+        }
+    }
+    internal class ProgramDrone
+    {
+       public static int TotalDeliveryTime(Drone[] arr, int packageWeight)
+        {
+            int timeSum = 0;
+            for(int i = 0; i < arr.Length; i++)
+            {
+                timeSum += arr[i].GetDeliveryTime(packageWeight);
+            }
+            return timeSum;
+        }
+    }
+}
+
+
+
