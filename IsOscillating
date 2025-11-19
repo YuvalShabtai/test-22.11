@@ -1,0 +1,45 @@
+  public static bool IsOscillating(int[] arr)
+  {
+      // תנאי ראשון: האיבר הראשון חייב להיות חיובי
+      if (arr[0] <= 0) return false;
+
+      for (int i = 1; i < arr.Length; i++)
+      {
+          // תנאי שני: הסימן חייב להיות הפוך
+          if ((arr[i] > 0 && arr[i - 1] > 0) ||
+              (arr[i] < 0 && arr[i - 1] < 0))
+              return false;
+
+          // תנאי שלישי: הערך המוחלט חייב לגדול
+          if (Math.Abs(arr[i]) <= Math.Abs(arr[i - 1]))
+              return false;
+      }
+
+      return true;
+  }
+  public static bool AlmostOscillating(int[] arr)
+  {
+      // אם המערך כבר מתנודד, הוא לא "כמעט" מתנודד
+      if (IsOscillating(arr))
+          return false;
+
+      int countError = 0;
+
+      // תנאי ראשון: האיבר הראשון חייב להיות חיובי
+      if (arr[0] <= 0)
+          countError++;
+
+      for (int i = 1; i < arr.Length; i++)
+      {
+          // תנאי שני: הסימן חייב להיות הפוך
+          if ((arr[i] > 0 && arr[i - 1] > 0) ||
+              (arr[i] < 0 && arr[i - 1] < 0))
+              countError++;
+
+          // תנאי שלישי: הערך המוחלט חייב לגדול
+          if (Math.Abs(arr[i]) <= Math.Abs(arr[i - 1]))
+              countError++;
+      }
+
+      return countError == 1;
+  }
