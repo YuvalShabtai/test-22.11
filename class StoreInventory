@@ -61,6 +61,10 @@ class FoodItem : Item
     // No override needed – food without refrigeration can be stored anywhere
 }
 
+
+
+
+
 class FoodRefrigerated : FoodItem
 {
     private int minTemperature;
