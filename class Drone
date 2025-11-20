@@ -65,7 +65,8 @@
             this.turbo = turbo;
         }
 
-       
+
+
 
     public override int GetDeliveryTime(int packageWeight)
         {
