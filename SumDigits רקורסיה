@@ -63,5 +63,3 @@ SumDigits(5)   = 5
 SumDigits(58)  = 5 + 8  = 13  
 SumDigits(583) = 13 + 3 = 16  
 SumDigits(5832)= 16 + 2 = 18  
-
-Final Result: 18  
