@@ -64,31 +64,3 @@ class Supervisor : Employee
     }
 }
 
-internal class Program
-{
-    public static bool IsAccepted(Object[] arr)
-    {
-        int sumFor = 0;
-        int sumAgainst = 0;
-
-        foreach (object obj in arr)
-        {
-            Employee e = (Employee)obj;
-
-            if (e is Employee && !(e is Technician) && !(e is UnionMember) && !(e is Supervisor))
-            {
-                sumFor += e.GetScore(); 
-            }
-            else if (e is Technician)
-            {
-                sumFor += e.GetScore();
-            }
-            else 
-            {
-                sumAgainst += e.GetScore();
-            }
-        }
-
-        return sumFor > sumAgainst;
-    }
-}
