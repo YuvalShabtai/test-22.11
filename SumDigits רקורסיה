@@ -58,7 +58,6 @@ Trace Diagram for: SumDigits(5832)
 | if (num < 10) → true                                      |
 | Returns: 5                                                |
 +-----------------------------------------------------------+
-
                     ↑ RETURN FLOW (Unwinding) ↑
 
 SumDigits(5)   = 5  
