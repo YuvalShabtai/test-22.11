@@ -65,7 +65,9 @@
             this.turbo = turbo;
         }
 
-        public override int GetDeliveryTime(int packageWeight)
+       
+
+    public override int GetDeliveryTime(int packageWeight)
         {
             if (turbo)
                 return base.GetDeliveryTime(packageWeight) - 10;
